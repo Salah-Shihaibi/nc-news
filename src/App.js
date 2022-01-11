@@ -9,6 +9,7 @@ import { ArticlePage } from "./Components/ArticlePage";
 import { useContext } from "react";
 import { LoggedIn } from "./contexts/LoggedIn";
 import { AddArticle } from "./Components/AddArticle";
+import { EditArticle } from "./Components/EditArticle";
 
 function App() {
   const { user } = useContext(LoggedIn);
@@ -32,6 +33,12 @@ function App() {
             path="/post/article"
             element={user ? <AddArticle /> : <Navigate to="/login" />}
           />
+
+          <Route
+            path="/edit/articles/:article_id"
+            element={user ? <EditArticle /> : <Navigate to="/login" />}
+          />
+
           <Route path="/error" element={<ErrorPage />} />
         </Routes>
       </div>
