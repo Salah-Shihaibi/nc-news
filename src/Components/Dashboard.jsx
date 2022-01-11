@@ -1,12 +1,15 @@
-export const Dashboard = ({ user, setUser }) => {
-  if (user !== null) {
+import { useContext } from "react";
+import { LoggedIn } from "../contexts/LoggedIn";
+
+export const Dashboard = () => {
+  const { user, logout, setUser } = useContext(LoggedIn);
+  if (user) {
     return (
       <div>
         <h2>Dashboard</h2>
         <button
           onClick={() => {
-            localStorage.setItem("user", JSON.stringify(null));
-            setUser(null);
+            logout(setUser);
           }}
         >
           Logout

@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-export const Nav = ({ user }) => {
+import { useContext } from "react";
+import { LoggedIn } from "../contexts/LoggedIn";
+export const Nav = () => {
+  const { user } = useContext(LoggedIn);
   return (
     <nav>
       <ul>

@@ -2,8 +2,11 @@ import React from "react";
 import { useState } from "react";
 import { fetchUserByUsername } from "../Utils/api";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { LoggedIn } from "../contexts/LoggedIn";
 
-export const Login = ({ setUser }) => {
+export const Login = () => {
+  const { setUser } = useContext(LoggedIn);
   const [usernameInput, setUsernameInput] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
@@ -12,9 +15,9 @@ export const Login = ({ setUser }) => {
     event.preventDefault();
     fetchUserByUsername(usernameInput)
       .then(({ user }) => {
-        setUser(user);
         localStorage.setItem("user", JSON.stringify(user));
         setErrorMsg("");
+        setUser(user);
         navigate("/dashboard");
       })
       .catch((err) => {
@@ -27,6 +30,7 @@ export const Login = ({ setUser }) => {
       <form onSubmit={loginSubmit}>
         <input
           placeholder="username"
+          name="username"
           onChange={(event) => {
             setUsernameInput(event.target.value);
           }}

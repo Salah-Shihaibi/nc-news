@@ -1,21 +1,17 @@
 import "./App.css";
-import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Nav } from "./Components/Nav";
 import { Login } from "./Components/Login";
 import { Dashboard } from "./Components/Dashboard";
 import { Articles } from "./Components/Articles";
-
-function getStorageValue(key, defaultValue) {
-  const saved = localStorage.getItem(key);
-  const initial = JSON.parse(saved);
-  return initial || defaultValue;
-}
+import { ErrorPage } from "./Components/ErrorPage";
+import { ArticlePage } from "./Components/ArticlePage";
+import { useContext } from "react";
+import { LoggedIn } from "./contexts/LoggedIn";
+import { AddArticle } from "./Components/AddArticle";
 
 function App() {
-  const [user, setUser] = useState(() => {
-    return getStorageValue("user", null);
-  });
+  const { user } = useContext(LoggedIn);
 
   return (
     <BrowserRouter>
@@ -25,20 +21,18 @@ function App() {
           <Route path="/" element={<Articles />} />
           <Route
             path="/login"
-            element={
-              user ? <Navigate to="/dashboard" /> : <Login setUser={setUser} />
-            }
+            element={user ? <Navigate to="/dashboard" /> : <Login />}
           />
           <Route
             path="/dashboard"
-            element={
-              user ? (
-                <Dashboard user={user} setUser={setUser} />
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
+            element={user ? <Dashboard /> : <Navigate to="/login" />}
           />
+          <Route path="/articles/:article_id" element={<ArticlePage />} />
+          <Route
+            path="/post/article"
+            element={user ? <AddArticle /> : <Navigate to="/login" />}
+          />
+          <Route path="/error" element={<ErrorPage />} />
         </Routes>
       </div>
     </BrowserRouter>
