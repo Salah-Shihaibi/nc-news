@@ -1,0 +1,32 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 0px;
+  background-color: rgb(211, 211, 211);
+}
+
+.image {
+  width: 200px;
+  height: 200px;
+  object-fit: fill;
+  border-radius: 50%;
+  border: solid 2px rgb(184, 183, 183);
+}
+
+.name {
+  font-size: 23px;
+  font-family: "georgia";
+  font-weight: bold;
+}
+
+.username {
+  font-family: "georgia";
+  font-style: italic;
+}
+
+.logout {
+  margin-right: 10px !important;
+}

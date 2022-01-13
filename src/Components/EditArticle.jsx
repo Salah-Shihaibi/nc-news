@@ -4,6 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
 import { errorHandler } from "../Utils/errorHandler";
+import { InputText } from "./InputText";
+import { Button, Alert, Avatar } from "@mui/material";
+import InputIcon from "@mui/icons-material/Input";
 
 export const EditArticle = () => {
   const { article_id } = useParams();
@@ -39,33 +42,42 @@ export const EditArticle = () => {
 
   if (user.username === article.author) {
     return (
-      <>
-        <h1>Edit Article</h1>
-        {errorMsg ? <p>{errorMsg}</p> : null}
-        <form onSubmit={editArticleOnSubmit}>
-          <textarea
-            placeholder="description"
-            onChange={(event) => {
-              setBodyInput(event.target.value);
-            }}
-            value={bodyInput}
+      <div className="container_global">
+        <Avatar sx={{ width: 56, height: 56, m: 1, bgcolor: "success.main" }}>
+          <InputIcon></InputIcon>
+        </Avatar>
+        <p className="title">Edit Article</p>
+
+        {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
+        <form onSubmit={editArticleOnSubmit} className="form_global">
+          <InputText
+            labeling={"description"}
+            val={bodyInput}
+            onChangeFun={setBodyInput}
           />
-          <button type="submit">Edit Article</button>
-          <button
-            type="button"
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            Cancel
-          </button>
+
+          <div>
+            <Button type="submit" variant="contained">
+              Edit Article
+            </Button>
+            <Button
+              variant="contained"
+              className="cancel"
+              type="button"
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              Cancel
+            </Button>
+          </div>
         </form>
-      </>
+      </div>
     );
   } else if (!article.body) {
     return (
       <>
-        <h2>Loading</h2>
+        <h2>Loading...</h2>
       </>
     );
   } else {

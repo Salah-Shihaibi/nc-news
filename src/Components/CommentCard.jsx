@@ -3,20 +3,23 @@ import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
 import { useState } from "react";
 import { EditComment } from "./EditComment";
+import { useLike } from "../hooks/useLike";
+import { editComment } from "../Utils/api";
+import { VoteButton } from "./VoteButton";
 
 export const CommentCard = ({ comment, deleteComment, patchComment }) => {
   const { user } = useContext(LoggedIn);
   const { author, votes, created_at, body, comment_id } = comment;
   const [toggleComment, setToggleComment] = useState(true);
+  const { vote, voting } = useLike(comment_id, editComment);
 
   if (toggleComment) {
     return (
       <div>
         author:{author} <br />
         body: {body} <br />
-        <button>like</button>
-        <button>dislike</button>
-        {votes} Votes <br />
+        <VoteButton voting={voting} />
+        {votes + vote} Votes <br />
         <p>Date: {timeSince(created_at)} ago</p>
         {author === user.username ? (
           <>

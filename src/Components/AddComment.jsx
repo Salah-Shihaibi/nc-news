@@ -30,21 +30,25 @@ export const AddComment = ({ setAllComments, article_id }) => {
       });
   };
 
-  return (
-    <>
-      <h1>Add Comment</h1>
-      {errorMsg ? <p>{errorMsg}</p> : null}
-      <form onSubmit={postCommentOnSubmit}>
-        <input
-          name="comment"
-          placeholder="description"
-          onChange={(event) => {
-            changeComment(event.target.value, "body");
-          }}
-          value={commentInputs.body}
-        ></input>
-        <button type="submit">Add Comment</button>
-      </form>
-    </>
-  );
+  if (Object.keys(user).length > 0) {
+    return (
+      <>
+        <h1>Add Comment</h1>
+        {errorMsg ? <p>{errorMsg}</p> : null}
+        <form onSubmit={postCommentOnSubmit}>
+          <input
+            name="comment"
+            placeholder="description"
+            onChange={(event) => {
+              changeComment(event.target.value, "body");
+            }}
+            value={commentInputs.body}
+          ></input>
+          <button type="submit">Add Comment</button>
+        </form>
+      </>
+    );
+  } else {
+    return <></>;
+  }
 };

@@ -10,8 +10,8 @@ export const fetchUserByUsername = (username) => {
   });
 };
 
-export const fetchArticles = () => {
-  return myApi.get(`/articles?`).then((res) => {
+export const fetchArticles = (queries) => {
+  return myApi.get(`/articles?${queries}`).then((res) => {
     return res.data;
   });
 };
@@ -22,10 +22,12 @@ export const fetchArticleById = (articles_id) => {
   });
 };
 
-export const fetchComments = (article_id) => {
-  return myApi.get(`/articles/${article_id}/comments`).then((res) => {
-    return res.data;
-  });
+export const fetchComments = (article_id, queries) => {
+  return myApi
+    .get(`/articles/${article_id}/comments?${queries}`)
+    .then((res) => {
+      return res.data;
+    });
 };
 
 export const removeArticle = (article_id) => {
@@ -62,6 +64,18 @@ export const editArticle = (article_id, body) => {
 
 export const editComment = (comment_id, body) => {
   return myApi.patch(`comments/${comment_id}`, body).then((res) => {
+    return res.data;
+  });
+};
+
+export const editUser = (username, body) => {
+  return myApi.patch(`users/${username}`, body).then((res) => {
+    return res.data;
+  });
+};
+
+export const postTopic = (body) => {
+  return myApi.post(`/topics`, body).then((res) => {
     return res.data;
   });
 };

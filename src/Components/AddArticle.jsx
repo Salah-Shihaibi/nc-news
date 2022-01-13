@@ -3,11 +3,22 @@ import { postArticle } from "../Utils/api";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
-import { Topics } from "../contexts/Topics";
+import { TopicsList } from "../contexts/Topics";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import {
+  Button,
+  Avatar,
+  Alert,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import { InputText } from "./InputText";
 
 export const AddArticle = () => {
   const { user } = useContext(LoggedIn);
-  const { topics } = useContext(Topics);
+  const { topics } = useContext(TopicsList);
   const [articleInputs, setArticleInputs] = useState({
     title: "",
     topic: "",
@@ -37,52 +48,59 @@ export const AddArticle = () => {
   };
 
   return (
-    <>
-      <h1>Add Article</h1>
-      {errorMsg ? <p>{errorMsg}</p> : null}
-      <form onSubmit={postArticleOnSubmit}>
-        <input
-          placeholder="title"
-          onChange={(event) => {
-            changeArticle(event.target.value, "title");
-          }}
-          value={articleInputs.title}
-        ></input>
-
-        <input
-          placeholder="description"
-          onChange={(event) => {
-            changeArticle(event.target.value, "body");
-          }}
-          value={articleInputs.body}
-        ></input>
-        <select
-          onChange={(event) => {
-            changeArticle(event.target.value, "topic");
-          }}
-        >
-          <option selected disabled hidden value="">
-            Choose Category
-          </option>
-          {topics.map(({ slug }) => {
-            return (
-              <option key={slug} value={slug}>
-                {slug}
-              </option>
-            );
-          })}
-        </select>
-
-        <button type="submit">Add Article</button>
-        <button
-          type="button"
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          Cancel
-        </button>
+    <div className="container_global">
+      <Avatar sx={{ width: 56, height: 56, m: 1, bgcolor: "success.main" }}>
+        <EditRoundedIcon></EditRoundedIcon>
+      </Avatar>
+      <p className="title">Add Article</p>
+      {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
+      <form onSubmit={postArticleOnSubmit} className="form_global">
+        <InputText
+          labeling={"title"}
+          val={articleInputs.title}
+          onChangeFun={changeArticle}
+        />
+        <InputText
+          labeling={"body"}
+          val={articleInputs.body}
+          onChangeFun={changeArticle}
+        />
+        <FormControl className="width30">
+          <InputLabel id="demo-simple-select-label">topic</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={articleInputs.topic}
+            label="Age"
+            onChange={(event) => {
+              changeArticle(event.target.value, "topic");
+            }}
+          >
+            {topics.map(({ slug }) => {
+              return (
+                <MenuItem key={slug} value={slug}>
+                  {slug}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+        <div>
+          <Button variant="contained" type="submit">
+            Add Article
+          </Button>
+          <Button
+            type="button"
+            className="cancel"
+            variant="contained"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            Cancel
+          </Button>
+        </div>
       </form>
-    </>
+    </div>
   );
 };

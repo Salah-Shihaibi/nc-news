@@ -3,7 +3,7 @@ import "./index.css";
 import App from "./App";
 import { StrictMode, useState, useEffect } from "react";
 import { LoggedIn } from "./contexts/LoggedIn";
-import { Topics } from "./contexts/Topics";
+import { TopicsList } from "./contexts/Topics";
 import { fetchTopics } from "./Utils/api";
 
 function getStorageValue(key, defaultValue) {
@@ -32,9 +32,9 @@ function Index() {
   return (
     <>
       <LoggedIn.Provider value={{ user, setUser, logout }}>
-        <Topics.Provider value={{ topics, setTopics }}>
+        <TopicsList.Provider value={{ topics, setTopics }}>
           <App />
-        </Topics.Provider>
+        </TopicsList.Provider>
       </LoggedIn.Provider>
     </>
   );

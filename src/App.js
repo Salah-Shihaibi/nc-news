@@ -10,10 +10,11 @@ import { useContext } from "react";
 import { LoggedIn } from "./contexts/LoggedIn";
 import { AddArticle } from "./Components/AddArticle";
 import { EditArticle } from "./Components/EditArticle";
+import { AddTopic } from "./Components/AddTopic";
 
 function App() {
-  const { user } = useContext(LoggedIn);
-
+  let { user } = useContext(LoggedIn);
+  user = Object.keys(user).length === 0 ? null : user;
   return (
     <BrowserRouter>
       <div className="App">
@@ -32,6 +33,10 @@ function App() {
           <Route
             path="/post/article"
             element={user ? <AddArticle /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/post/topic"
+            element={user ? <AddTopic /> : <Navigate to="/login" />}
           />
 
           <Route
