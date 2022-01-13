@@ -9,8 +9,10 @@ import { LoggedIn } from "../contexts/LoggedIn";
 import { useLike } from "../hooks/useLike";
 import { editArticle } from "../Utils/api";
 import { VoteButton } from "./VoteButton";
+import { Chip, Avatar } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import ModeCommentIcon from "@mui/icons-material/ModeComment";
 
 export const ArticlePage = () => {
   const { user } = useContext(LoggedIn);
@@ -35,55 +37,66 @@ export const ArticlePage = () => {
       .catch((err) => errorHandler(err, navigate));
   };
 
-  return (
-    <div className="article_card">
-      <div>
-        author:{singleArticle.author} <br />
-        topic: {singleArticle.topic} <br />
-        Title: {singleArticle.title} <br />
-        <VoteButton voting={voting} />
-        {singleArticle.votes + vote} Votes <br />
-        {singleArticle.comment_count} comments <br />
-        Description: {singleArticle.body}
-        <p>Date: {timeSince(singleArticle.created_at)} ago</p>
-        {singleArticle.author === user.username ? (
-          <>
-            <button
-              onClick={() => {
-                deleteArticle(singleArticle.article_id);
-              }}
-            >
-              Delete
-            </button>
-            <button onClick={() => navigate(`/edit/articles/${article_id}`)}>
-              Edit
-            </button>
-          </>
-        ) : null}
-      </div>
-
-      <div className="edit_delete">
-        {singleArticle.author === user.username ? (
-          <>
-            <DeleteOutlineIcon
-              className="red point"
-              onClick={() => {
-                deleteArticle(article_id);
-              }}
+  if (singleArticle.body) {
+    return (
+      <div className="center bg_smoke">
+        <div className="article_page">
+          <div>
+            <span className="small_text">
+              Posted by {singleArticle.author} .{" "}
+              {timeSince(singleArticle.created_at)} ago
+            </span>
+            <Chip
+              label={singleArticle.topic}
+              color="primary"
+              size="small"
+              avatar={<Avatar>{singleArticle.topic[0].toUpperCase()}</Avatar>}
             />
-            <EditOutlinedIcon
-              className="blue point"
-              onClick={() => navigate(`/edit/articles/${article_id}`)}
-            />
-          </>
-        ) : null}
-      </div>
+          </div>
 
-      <h2>Comments</h2>
-      <Comments
-        article_id={article_id}
-        comment_count={Number(singleArticle.comment_count)}
-      />
-    </div>
-  );
+          <div className="">
+            <p className="article_title">{singleArticle.title}</p>
+            <p className="article_body">{singleArticle.body}</p>
+          </div>
+
+          <div className="wrap_global">
+            <VoteButton
+              voting={voting}
+              totalVote={singleArticle.votes + vote}
+              vote={vote}
+            />
+            <div className="comment_count">
+              {singleArticle.comment_count} <ModeCommentIcon />
+            </div>
+            <div className="edit_delete">
+              {singleArticle.author === user.username ? (
+                <>
+                  <DeleteOutlineIcon
+                    className="red point"
+                    onClick={() => {
+                      deleteArticle(article_id);
+                    }}
+                  />
+                  <EditOutlinedIcon
+                    className="blue point"
+                    onClick={() => navigate(`/edit/articles/${article_id}`)}
+                  />
+                </>
+              ) : null}
+            </div>
+          </div>
+          <Comments
+            article_id={article_id}
+            comment_count={Number(singleArticle.comment_count)}
+          />
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <>
+        <h2>Loading...</h2>
+      </>
+    );
+  }
 };

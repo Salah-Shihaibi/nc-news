@@ -6,28 +6,30 @@ export const Topics = ({ setTopic, setSelectTopic }) => {
   const { topics } = useContext(TopicsList);
 
   return (
-    <>
-      <div
-        onClick={() => {
-          setTopic("");
-          setSelectTopic(false);
-        }}
-      >
-        All articles
+    <div
+      className="popup"
+      onClick={() => {
+        setTopic("");
+        setSelectTopic(false);
+      }}
+    >
+      <div className="topic_wrap">
+        {topics.map(({ slug, description }) => {
+          return (
+            <div
+              className="topics point"
+              onClick={(event) => {
+                event.stopPropagation();
+                setTopic(`topic=${slug}`);
+                setSelectTopic(false);
+              }}
+            >
+              <p className="article_title">{slug}</p>
+              <p className="article_body">{description}</p>
+            </div>
+          );
+        })}
       </div>
-      {topics.map(({ slug, description }) => {
-        return (
-          <div
-            onClick={() => {
-              setTopic(`topic=${slug}`);
-              setSelectTopic(false);
-            }}
-          >
-            slug: {slug}
-            description: {description}
-          </div>
-        );
-      })}
-    </>
+    </div>
   );
 };

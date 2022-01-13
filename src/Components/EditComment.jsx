@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { editComment } from "../Utils/api";
-
+import { InputText } from "./InputText";
+import { Button, Alert } from "@mui/material";
 export const EditComment = ({ comment, setToggleComment, patchComment }) => {
   const [bodyInput, setBodyInput] = useState(comment.body);
   const [errorMsg, setErrorMsg] = useState("");
@@ -20,24 +21,28 @@ export const EditComment = ({ comment, setToggleComment, patchComment }) => {
 
   return (
     <>
-      <h1>Edit Comment</h1>
-      {errorMsg ? <p>{errorMsg}</p> : null}
+      {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
       <form onSubmit={editCommentOnSubmit}>
-        <textarea
-          placeholder="description"
-          onChange={(event) => {
-            setBodyInput(event.target.value);
-          }}
-          value={bodyInput}
+        <InputText
+          labeling={"body"}
+          val={bodyInput}
+          onChangeFun={setBodyInput}
         />
-        <button type="submit">Edit Comment</button>
-        <button
-          onClick={() => {
-            setToggleComment(true);
-          }}
-        >
-          Cancel
-        </button>
+        <div>
+          <Button variant="contained" type="submit">
+            Edit Comment
+          </Button>
+          <Button
+            type="button"
+            className="cancel"
+            variant="contained"
+            onClick={() => {
+              setToggleComment(true);
+            }}
+          >
+            Cancel
+          </Button>
+        </div>
       </form>
     </>
   );

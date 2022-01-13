@@ -2,6 +2,8 @@ import { useState } from "react";
 import { postComment } from "../Utils/api";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
+import { InputText } from "./InputText";
+import { Button } from "@mui/material";
 
 export const AddComment = ({ setAllComments, article_id }) => {
   const { user } = useContext(LoggedIn);
@@ -32,21 +34,24 @@ export const AddComment = ({ setAllComments, article_id }) => {
 
   if (Object.keys(user).length > 0) {
     return (
-      <>
-        <h1>Add Comment</h1>
+      <div className="gray_border input_comment">
+        <p className="small_text text_margin">
+          Comment as <span className="blue">{user.username}</span>
+        </p>
         {errorMsg ? <p>{errorMsg}</p> : null}
         <form onSubmit={postCommentOnSubmit}>
-          <input
-            name="comment"
-            placeholder="description"
-            onChange={(event) => {
-              changeComment(event.target.value, "body");
-            }}
-            value={commentInputs.body}
-          ></input>
-          <button type="submit">Add Comment</button>
+          <InputText
+            labeling={"body"}
+            val={commentInputs.body}
+            onChangeFun={changeComment}
+          />
+          <div className="flex_end">
+            <Button type="submit" variant="contained" size="small">
+              Add Comment
+            </Button>
+          </div>
         </form>
-      </>
+      </div>
     );
   } else {
     return <></>;

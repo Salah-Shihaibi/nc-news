@@ -37,6 +37,11 @@
   width: 100%;
 }
 
+.flex_end {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .container_global,
 .form_global {
   display: flex;
@@ -52,22 +57,26 @@
   max-width: 600px;
 }
 
-.width100 {
+.filter_nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
+  background-color: white;
+  height: 60px;
+  padding: 0px 5px;
 }
-
-.width30 {
-  width: 30%;
-  margin: 10px 0px !important;
-}
-
-.article_page {
-  background-color: whitesmoke;
+.articles_count {
+  width: 96%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .articles {
   display: flex;
   flex-wrap: wrap;
-  gap: 1%;
+  gap: 10px;
   justify-content: center;
   align-items: center;
 }
@@ -101,6 +110,11 @@
 .green {
   color: rgb(59, 224, 37);
 }
+.green:hover {
+  transition: transform 0.3s; /* Animation */
+  color: rgb(11, 124, 11);
+  transform: scale(1.05);
+}
 
 .red {
   color: rgb(224, 49, 37);
@@ -114,8 +128,14 @@
 }
 
 .article_title {
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 700;
+  margin: 10px 0px;
+}
+
+.article_body {
+  font-size: 15px;
+  font-weight: lighter;
   margin: 10px 0px;
 }
 
@@ -125,11 +145,17 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  border: solid 2px rgb(221, 220, 220);
+  border: solid 1.5px rgb(161, 161, 161);
   border-radius: 25px;
   color: gray;
   width: 25%;
   padding: 2px 10px;
+}
+.comment_count {
+  margin-left: 5px;
+}
+.vote_count {
+  justify-content: space-evenly;
 }
 
 .edit_delete {
@@ -143,9 +169,176 @@
 .point {
   cursor: pointer;
 }
-@media (max-width: 600px) {
+
+.article_page {
+  max-width: 600px;
+  width: 96%;
+  margin: 20px 0px;
+  padding: 15px 15px 5px 15px;
+  background-color: rgb(255, 255, 255);
+  transition: transform 0.3s;
+}
+
+.bg_smoke {
+  background-color: whitesmoke;
+}
+
+.input_comment {
+  margin: 15px 0px 15px 0px;
+  padding: 3px 10px;
+}
+
+.text_margin {
+  margin: 10px 0px -10px 0px;
+}
+
+.gray_border {
+  border: solid 1.5px rgb(221, 220, 220);
+  border-radius: 5px;
+}
+
+.comment_body {
+  font-size: 12px;
+  font-weight: lighter;
+  margin: 10px 0px;
+}
+
+.comment_card {
+  margin-bottom: 20px;
+}
+
+.width100 {
+  width: 100% !important;
+}
+
+.width30 {
+  width: 30%;
+  margin: 10px 0px !important;
+}
+
+.width_select {
+  width: 18%;
+}
+
+.popup {
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  z-index: 990;
+  background-color: rgba(0, 0, 0, 0.6);
+  margin-top: -80px;
+  min-height: 100vh;
+  animation-name: popup;
+  animation-duration: 0.5s;
+}
+
+@keyframes popup {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.topic_wrap {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.topics {
+  width: 100%;
+  z-index: 999;
+  background-color: white;
+  padding: 5px 5px;
+  border: solid 1px rgb(221, 220, 220);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+}
+.topics:hover {
+  transition: transform 0.3s; /* Animation */
+  transform: scale(1.01);
+}
+
+.post {
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  padding: 20px 20px;
+  border: solid 1px rgb(221, 220, 220);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0;
+  margin-right: 20px;
+  font-size: 20px;
+}
+.post:hover {
+  transition: transform 0.3s; /* Animation */
+  transform: scale(1.05);
+}
+
+.search_bar {
+  border: solid 1.2px rgb(161, 161, 161) !important;
+  padding: 10px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.search_input {
+  border: none;
+}
+.search_input:focus {
+  outline: none;
+}
+.search_form {
+  width: 45%;
+}
+
+.mr-2 {
+  margin-right: 5px !important;
+}
+
+.behind {
+  z-index: 0 !important;
+}
+
+.p-2 {
+  padding: 20px 3px !important;
+  border-radius: 25px !important;
+  border: solid 1.5px rgb(161, 161, 161) !important;
+}
+
+.thick_boarder {
+  border: solid 1.5px rgb(161, 161, 161) !important;
+}
+
+.mobile_search {
+  display: none;
+}
+@media (max-width: 630px) {
   .article_card {
     width: 90%;
     margin: 10px 0px;
+  }
+  .pc {
+    display: none;
+  }
+
+  .mobile_search {
+    display: flex;
+    margin: auto;
+  }
+  .select_width {
+    width: 70px;
   }
 }

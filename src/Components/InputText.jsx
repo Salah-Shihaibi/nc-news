@@ -1,7 +1,6 @@
 import { TextField } from "@mui/material";
 
 export const InputText = ({ labeling, val, onChangeFun }) => {
-  console.log(labeling, val);
   return (
     <TextField
       className="width100"

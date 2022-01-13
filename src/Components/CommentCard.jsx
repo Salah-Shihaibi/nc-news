@@ -6,6 +6,8 @@ import { EditComment } from "./EditComment";
 import { useLike } from "../hooks/useLike";
 import { editComment } from "../Utils/api";
 import { VoteButton } from "./VoteButton";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 export const CommentCard = ({ comment, deleteComment, patchComment }) => {
   const { user } = useContext(LoggedIn);
@@ -15,30 +17,30 @@ export const CommentCard = ({ comment, deleteComment, patchComment }) => {
 
   if (toggleComment) {
     return (
-      <div>
-        author:{author} <br />
-        body: {body} <br />
-        <VoteButton voting={voting} />
-        {votes + vote} Votes <br />
-        <p>Date: {timeSince(created_at)} ago</p>
-        {author === user.username ? (
-          <>
-            <button
-              onClick={() => {
-                deleteComment(comment_id);
-              }}
-            >
-              Delete
-            </button>
-            <button
-              onClick={() => {
-                setToggleComment(false);
-              }}
-            >
-              Edit
-            </button>
-          </>
-        ) : null}
+      <div className="comment_card">
+        <span className="small_text">
+          Posted by {author} . {timeSince(created_at)} ago
+        </span>
+        <p className="comment_body">{body}</p>
+        <div className="wrap_global">
+          <VoteButton voting={voting} totalVote={votes + vote} vote={vote} />
+          <div className="edit_delete width100">
+            {author === user.username ? (
+              <>
+                <DeleteOutlineIcon
+                  className="red point"
+                  onClick={() => {
+                    deleteComment(comment_id);
+                  }}
+                />
+                <EditOutlinedIcon
+                  className="blue point"
+                  onClick={() => setToggleComment(false)}
+                />
+              </>
+            ) : null}
+          </div>
+        </div>
       </div>
     );
   } else {
