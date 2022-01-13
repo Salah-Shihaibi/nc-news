@@ -6,25 +6,28 @@ import { errorHandler } from "../Utils/errorHandler";
 import { Search } from "./Search";
 import { SortFilter } from "./SortFilter";
 import { Topics } from "./Topics";
+import { InfiniteScroll } from "./InfiniteScroll";
+const LIMIT = 10;
 
 export const Articles = () => {
   let navigate = useNavigate();
   const [allArticles, setAllArticles] = useState([]);
-  const [totalCount, setTotalCount] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [sortBy, setSortBy] = useState("created_at");
   const [order, setOrder] = useState("desc");
   const [search, setSearch] = useState("");
   const [lastTenMins, setLastTenMins] = useState("");
   const [topic, setTopic] = useState("");
   const [selectTopic, setSelectTopic] = useState(false);
+  const [page, setPage] = useState(2);
 
   useEffect(() => {
     fetchArticles(
-      `lastTenMins=${lastTenMins}&limit=40&order=${order}&sort_by=${sortBy}&search=${search}&${topic}`
+      `lastTenMins=${lastTenMins}&limit=${LIMIT}&order=${order}&sort_by=${sortBy}&search=${search}&${topic}`
     )
       .then(({ articles, total_count }) => {
         setAllArticles(articles);
-        setTotalCount(total_count);
+        setTotalCount(Number(total_count));
       })
       .catch((err) => errorHandler(err, navigate));
   }, [lastTenMins, navigate, order, search, sortBy, topic]);
@@ -36,6 +39,17 @@ export const Articles = () => {
       );
     });
     removeArticle(article_id).catch((err) => errorHandler(err, navigate));
+  };
+
+  const incArticles = () => {
+    fetchArticles(
+      `p=${page}&lastTenMins=${lastTenMins}&limit=${LIMIT}&order=${order}&sort_by=${sortBy}&search=${search}&${topic}`
+    )
+      .then(({ articles }) => {
+        setAllArticles((currArticles) => [...currArticles, ...articles]);
+        setPage((currPage) => currPage + 1);
+      })
+      .catch((err) => errorHandler(err, navigate));
   };
 
   return (
@@ -74,6 +88,12 @@ export const Articles = () => {
           );
         })}
       </div>
+      <InfiniteScroll
+        totalCount={totalCount}
+        LIMIT={LIMIT}
+        page={page}
+        incLimit={incArticles}
+      />
     </div>
   );
 };
