@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const Topics = createContext();
+export const TopicsList = createContext();
