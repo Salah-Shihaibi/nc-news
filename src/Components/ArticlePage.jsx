@@ -2,7 +2,7 @@ import { fetchArticleById, removeArticle } from "../Utils/api";
 import { useState, useEffect } from "react";
 import { errorHandler } from "../Utils/errorHandler";
 import { timeSince } from "../Utils/pastTime";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { Comments } from "./Comments";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
@@ -43,8 +43,18 @@ export const ArticlePage = () => {
         <div className="article_page">
           <div>
             <span className="small_text">
-              Posted by {singleArticle.author} .{" "}
-              {timeSince(singleArticle.created_at)} ago
+              Posted by{" "}
+              <Link
+                className="profile_link"
+                to={
+                  user.username === singleArticle.author
+                    ? "/dashboard"
+                    : `/profile/${singleArticle.author}`
+                }
+              >
+                {singleArticle.author}{" "}
+              </Link>
+              . {timeSince(singleArticle.created_at)} ago
             </span>
             <Chip
               label={singleArticle.topic}

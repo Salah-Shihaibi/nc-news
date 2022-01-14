@@ -11,6 +11,7 @@ import { LoggedIn } from "./contexts/LoggedIn";
 import { AddArticle } from "./Components/AddArticle";
 import { EditArticle } from "./Components/EditArticle";
 import { AddTopic } from "./Components/AddTopic";
+import { ProfilePage } from "./Components/ProfilePage";
 
 function App() {
   let { user } = useContext(LoggedIn);
@@ -28,6 +29,10 @@ function App() {
           <Route
             path="/dashboard"
             element={user ? <Dashboard /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile/:username"
+            element={user ? <ProfilePage /> : <Navigate to="/login" />}
           />
           <Route path="/articles/:article_id" element={<ArticlePage />} />
           <Route

@@ -22,7 +22,14 @@ export const ArticleCard = ({ article, deleteArticle, setTopic }) => {
     <div className="article_card">
       <div>
         <span className="small_text">
-          Posted by {author} . {timeSince(created_at)} ago
+          Posted by{" "}
+          <Link
+            className="profile_link"
+            to={user.username === author ? "/dashboard" : `/profile/${author}`}
+          >
+            {author}
+          </Link>{" "}
+          . {timeSince(created_at)} ago
         </span>
         <Chip
           label={topic}
@@ -36,7 +43,7 @@ export const ArticleCard = ({ article, deleteArticle, setTopic }) => {
       </div>
       <Link to={`/articles/${article_id}`} className="link">
         <p className="article_title">{title}</p>
-        <p className="small_text blue">Continue reading...</p>
+        <p className="small_text blue_color">Continue reading...</p>
       </Link>
       <div className="wrap_global">
         <VoteButton voting={voting} totalVote={votes + vote} vote={vote} />

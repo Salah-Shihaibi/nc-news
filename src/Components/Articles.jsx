@@ -13,7 +13,7 @@ import { Chip } from "@mui/material";
 
 const LIMIT = 10;
 
-export const Articles = () => {
+export const Articles = ({ userLikedArticles = "", author = "" }) => {
   let navigate = useNavigate();
   const [allArticles, setAllArticles] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -23,19 +23,20 @@ export const Articles = () => {
   const [lastTenMins, setLastTenMins] = useState("");
   const [topic, setTopic] = useState("");
   const [selectTopic, setSelectTopic] = useState(false);
+  const [userArticles, setUserArticles] = useState(author);
   const [page, setPage] = useState(2);
   const [post, setPost] = useState(false);
 
   useEffect(() => {
     fetchArticles(
-      `lastTenMins=${lastTenMins}&limit=${LIMIT}&order=${order}&sort_by=${sortBy}&search=${search}&${topic}`
+      `lastTenMins=${lastTenMins}&limit=${LIMIT}&order=${order}&sort_by=${sortBy}&search=${search}${topic}${userArticles}`
     )
       .then(({ articles, total_count }) => {
         setAllArticles(articles);
         setTotalCount(Number(total_count));
       })
       .catch((err) => errorHandler(err, navigate));
-  }, [lastTenMins, navigate, order, search, sortBy, topic]);
+  }, [lastTenMins, navigate, order, search, sortBy, topic, userArticles]);
 
   const deleteArticle = (article_id) => {
     setAllArticles((currArticles) => {
@@ -103,6 +104,10 @@ export const Articles = () => {
 
           <Search setSearch={setSearch} display={"pc"} />
           <SortFilter
+            userLikedArticles={userLikedArticles}
+            author={author}
+            setUserArticles={setUserArticles}
+            userArticles={userArticles}
             setSortBy={setSortBy}
             order={order}
             setOrder={setOrder}

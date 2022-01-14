@@ -66,6 +66,7 @@
   background-color: white;
   height: 60px;
   padding: 0px 5px;
+  margin-top: 1px;
 }
 .articles_count {
   width: 96%;
@@ -93,9 +94,17 @@
   transform: scale(1.005);
 }
 
+.profile_link {
+  color: rgb(37, 93, 224);
+  text-decoration: none;
+  font-style: italic;
+}
 .link {
   text-decoration: none;
   color: black;
+}
+.blue_color {
+  color: rgb(37, 93, 224);
 }
 .blue {
   color: rgb(37, 93, 224);

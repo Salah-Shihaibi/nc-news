@@ -17,7 +17,7 @@ export const Nav = () => {
   return (
     <>
       <nav className={styles.nav}>
-        <div className={styles.logo}>Logo</div>
+        <div className={styles.logo}>NC News</div>
 
         <div className={styles.avatar} onClick={toggle}>
           {user ? (
@@ -32,7 +32,7 @@ export const Nav = () => {
               alt="no user"
             />
           )}
-          <KeyboardArrowDownIcon />
+          <KeyboardArrowDownIcon className={styles.arrow} />
         </div>
       </nav>
       {navToggle ? (

@@ -20,7 +20,7 @@ export const Topics = ({ setTopic, setSelectTopic }) => {
               className="topics point"
               onClick={(event) => {
                 event.stopPropagation();
-                setTopic(`topic=${slug}`);
+                setTopic(`&topic=${slug}`);
                 setSelectTopic(false);
               }}
             >
