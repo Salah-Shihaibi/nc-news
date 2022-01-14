@@ -15,6 +15,9 @@
   color: rgb(155, 155, 155);
   margin-right: 20px;
 }
+.center_text {
+  text-align: center;
+}
 
 .cancel {
   margin-left: 10px !important;
@@ -67,6 +70,17 @@
   height: 60px;
   padding: 0px 5px;
   margin-top: 1px;
+}
+
+.delete_card {
+  max-width: 600px;
+  height: 200px;
+  margin: auto;
+  width: 90%;
+  padding: 5px 10px 5px 10px;
+  background-color: white;
+  border: solid 1px rgb(221, 220, 220);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
 }
 .articles_count {
   max-width: 1220px;
@@ -312,12 +326,10 @@
 
 .search_input {
   border: none;
+  width: 90%;
 }
 .search_input:focus {
   outline: none;
-}
-.search_form {
-  width: 45%;
 }
 
 .mr-2 {
@@ -341,6 +353,9 @@
 .mobile_search {
   display: none;
 }
+.pc {
+  width: 45%;
+}
 @media (max-width: 680px) {
   .article_card {
     width: 90%;
@@ -351,7 +366,12 @@
   }
 
   .mobile_search {
+    width: 100% !important;
     display: flex;
+    margin: auto;
+  }
+  .mobile_search_width {
+    width: 80%;
     margin: auto;
   }
   .p-2 {

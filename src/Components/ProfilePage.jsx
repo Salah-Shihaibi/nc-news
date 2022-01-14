@@ -32,6 +32,7 @@ export const ProfilePage = () => {
       <Articles
         author={`&author=${username}`}
         userLikedArticles={`&userLikedArticles=${username}`}
+        popupTopMargin={"-152px"}
       />
     </>
   );

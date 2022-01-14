@@ -1,17 +1,19 @@
 import React from "react";
 import { useContext } from "react";
 import { TopicsList } from "../contexts/Topics";
+import { Popup } from "./Popup";
 
-export const Topics = ({ setTopic, setSelectTopic }) => {
+export const Topics = ({ setTopic, setSelectTopic, popupTopMargin }) => {
   const { topics } = useContext(TopicsList);
 
   return (
-    <div
-      className="popup"
-      onClick={() => {
+    <Popup
+      setShow={() => {
         setTopic("");
         setSelectTopic(false);
       }}
+      popupTopMargin={popupTopMargin}
+      classes={""}
     >
       <div className="topic_wrap">
         {topics.map(({ slug, description }) => {
@@ -31,6 +33,6 @@ export const Topics = ({ setTopic, setSelectTopic }) => {
           );
         })}
       </div>
-    </div>
+    </Popup>
   );
 };

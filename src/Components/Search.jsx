@@ -13,7 +13,7 @@ export const Search = ({ setSearch, display }) => {
   return (
     <>
       <form onSubmit={handleSubmit} className={`search_form ${display}`}>
-        <div className="search_bar">
+        <div className={`search_bar mobile_search_width`}>
           <input
             className="search_input"
             onChange={(event) => {
