@@ -37,7 +37,7 @@ export const ArticleCard = ({ article, deleteArticle, setTopic }) => {
           size="small"
           avatar={<Avatar>{topic[0].toUpperCase()}</Avatar>}
           onClick={() => {
-            setTopic(`topic=${topic}`);
+            setTopic(`&topic=${topic}`);
           }}
         />
       </div>

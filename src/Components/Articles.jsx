@@ -129,7 +129,7 @@ export const Articles = ({ userLikedArticles = "", author = "" }) => {
                 return currLastTenMins ? "" : "true";
               });
             }}
-            color="primary"
+            color={lastTenMins ? "secondary" : "primary"}
             size="small"
             clickable
           />

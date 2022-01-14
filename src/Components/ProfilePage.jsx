@@ -10,7 +10,6 @@ export const ProfilePage = () => {
   let navigate = useNavigate();
   const { username } = useParams();
   const [profile, setProfile] = useState({});
-  console.log(username, profile);
   useEffect(() => {
     fetchUserByUsername(username)
       .then(({ user }) => {
