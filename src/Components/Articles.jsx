@@ -8,13 +8,14 @@ import { SortFilter } from "./SortFilter";
 import { Topics } from "./Topics";
 import { InfiniteScroll } from "./InfiniteScroll";
 import PostAddIcon from "@mui/icons-material/PostAdd";
+import TopicIcon from "@mui/icons-material/Topic";
 import { Popup } from "./Popup";
 import { Chip } from "@mui/material";
 
 const LIMIT = 10;
 
 export const Articles = ({ userLikedArticles = "", author = "" }) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [allArticles, setAllArticles] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [sortBy, setSortBy] = useState("created_at");
@@ -81,7 +82,7 @@ export const Articles = ({ userLikedArticles = "", author = "" }) => {
           <div>
             <Chip
               className="mr-2 p-2"
-              icon={<PostAddIcon />}
+              icon={<TopicIcon />}
               label={"Topic"}
               onClick={() => {
                 setSelectTopic(true);

@@ -12,7 +12,7 @@ export const SortFilter = ({
   return (
     <div>
       {author || userLikedArticles ? (
-        <FormControl className="mr-2 behind" size="small">
+        <FormControl className="mr-2 behind select_width" size="small">
           <InputLabel>Articles</InputLabel>
           <Select
             value={userArticles}
@@ -42,7 +42,7 @@ export const SortFilter = ({
         </Select>
       </FormControl>
 
-      <FormControl className="behind" size="small">
+      <FormControl className="behind select_width" size="small">
         <InputLabel>Order</InputLabel>
         <Select
           value={order}

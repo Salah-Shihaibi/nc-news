@@ -6,7 +6,7 @@ import { LoggedIn } from "../contexts/LoggedIn";
 import { errorHandler } from "../Utils/errorHandler";
 import { InputText } from "./InputText";
 import { Button, Alert, Avatar } from "@mui/material";
-import InputIcon from "@mui/icons-material/Input";
+import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 
 export const EditArticle = () => {
   const { article_id } = useParams();
@@ -44,7 +44,7 @@ export const EditArticle = () => {
     return (
       <div className="container_global">
         <Avatar sx={{ width: 56, height: 56, m: 1, bgcolor: "success.main" }}>
-          <InputIcon></InputIcon>
+          <ModeEditOutlineIcon></ModeEditOutlineIcon>
         </Avatar>
         <p className="title">Edit Article</p>
 

@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { TopicsList } from "../contexts/Topics";
 //import styles from "../style/AddTopic.module.css";
 import { Button, TextField, Alert, Avatar } from "@mui/material";
-import InputIcon from "@mui/icons-material/Input";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 
 export const AddTopic = () => {
   const { setTopics } = useContext(TopicsList);
@@ -39,8 +39,8 @@ export const AddTopic = () => {
 
   return (
     <div className="container_global">
-      <Avatar sx={{ width: 56, height: 56, m: 1, bgcolor: "success.main" }}>
-        <InputIcon></InputIcon>
+      <Avatar sx={{ width: 56, height: 56, m: 1, bgcolor: "primary.main" }}>
+        <PostAddIcon size="large"></PostAddIcon>
       </Avatar>
       <p className="title">Add topic</p>
       {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}

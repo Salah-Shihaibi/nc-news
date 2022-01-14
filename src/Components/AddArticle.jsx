@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
 import { TopicsList } from "../contexts/Topics";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import {
   Button,
   Avatar,
@@ -49,8 +49,8 @@ export const AddArticle = () => {
 
   return (
     <div className="container_global">
-      <Avatar sx={{ width: 56, height: 56, m: 1, bgcolor: "success.main" }}>
-        <EditRoundedIcon></EditRoundedIcon>
+      <Avatar sx={{ width: 56, height: 56, m: 1, bgcolor: "primary.main" }}>
+        <PostAddIcon size="large"></PostAddIcon>
       </Avatar>
       <p className="title">Add Article</p>
       {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}

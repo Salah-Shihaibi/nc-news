@@ -17,6 +17,7 @@ export const Topics = ({ setTopic, setSelectTopic }) => {
         {topics.map(({ slug, description }) => {
           return (
             <div
+              key={slug}
               className="topics point"
               onClick={(event) => {
                 event.stopPropagation();

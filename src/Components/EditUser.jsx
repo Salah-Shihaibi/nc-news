@@ -5,8 +5,10 @@ import { LoggedIn } from "../contexts/LoggedIn";
 //import styles from "../style/EditUser.module.css";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import { Button, TextField, Avatar, Alert } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-export const EditUser = ({ setToggleUser }) => {
+export const EditUser = () => {
+  const navigate = useNavigate();
   const { user, setUser } = useContext(LoggedIn);
   const [userInputs, setUserInputs] = useState({
     name: user.name,
@@ -27,7 +29,7 @@ export const EditUser = ({ setToggleUser }) => {
     setUser((currUser) => {
       return { ...currUser, ...userInputs };
     });
-    setToggleUser(true);
+    navigate(-1);
     editUser(user.username, userInputs)
       .then(({ user }) => {
         localStorage.setItem("user", JSON.stringify(user));
@@ -80,7 +82,7 @@ export const EditUser = ({ setToggleUser }) => {
             variant="contained"
             className="cancel"
             onClick={() => {
-              setToggleUser(true);
+              navigate(-1);
             }}
           >
             Cancel

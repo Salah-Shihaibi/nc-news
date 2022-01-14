@@ -12,6 +12,7 @@ import { AddArticle } from "./Components/AddArticle";
 import { EditArticle } from "./Components/EditArticle";
 import { AddTopic } from "./Components/AddTopic";
 import { ProfilePage } from "./Components/ProfilePage";
+import { EditUser } from "./Components/EditUser";
 
 function App() {
   let { user } = useContext(LoggedIn);
@@ -48,7 +49,10 @@ function App() {
             path="/edit/articles/:article_id"
             element={user ? <EditArticle /> : <Navigate to="/login" />}
           />
-
+          <Route
+            path="/edit/user"
+            element={user ? <EditUser /> : <Navigate to="/login" />}
+          />
           <Route path="/error" element={<ErrorPage />} />
         </Routes>
       </div>
