@@ -1,9 +1,9 @@
-import { timeSince } from "../Utils/pastTime";
+import { timeSince } from "../utils/pastTime";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
-import { editArticle } from "../Utils/api";
+import { editArticle } from "../utils/api";
 import { useLike } from "../hooks/useLike";
 import { VoteButton } from "./VoteButton";
 import { Chip, Avatar } from "@mui/material";
@@ -26,7 +26,6 @@ export const ArticleCard = ({ article, deleteArticle, setTopic }) => {
     <>
       {deleting ? (
         <Popup
-          popupTopMargin={"-120px"}
           setShow={() => {
             setDeleting(false);
           }}
@@ -57,6 +56,7 @@ export const ArticleCard = ({ article, deleteArticle, setTopic }) => {
             . {timeSince(created_at)} ago
           </span>
           <Chip
+            className="mt-mobile-4"
             label={topic}
             color="primary"
             size="small"

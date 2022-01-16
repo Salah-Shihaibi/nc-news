@@ -4,7 +4,7 @@ import App from "./App";
 import { StrictMode, useState, useEffect } from "react";
 import { LoggedIn } from "./contexts/LoggedIn";
 import { TopicsList } from "./contexts/Topics";
-import { fetchTopics } from "./Utils/api";
+import { fetchTopics } from "./utils/api";
 
 function getStorageValue(key, defaultValue) {
   const saved = localStorage.getItem(key);

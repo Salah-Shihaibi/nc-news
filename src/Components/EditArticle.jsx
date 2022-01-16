@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { editArticle, fetchArticleById } from "../Utils/api";
+import { editArticle, fetchArticleById } from "../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
-import { errorHandler } from "../Utils/errorHandler";
+import { errorHandler } from "../utils/errorHandler";
 import { InputText } from "./InputText";
 import { Button, Alert, Avatar } from "@mui/material";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";

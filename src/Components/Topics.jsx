@@ -1,9 +1,8 @@
-import React from "react";
 import { useContext } from "react";
 import { TopicsList } from "../contexts/Topics";
 import { Popup } from "./Popup";
 
-export const Topics = ({ setTopic, setSelectTopic, popupTopMargin }) => {
+export const Topics = ({ setTopic, setSelectTopic }) => {
   const { topics } = useContext(TopicsList);
 
   return (
@@ -12,7 +11,6 @@ export const Topics = ({ setTopic, setSelectTopic, popupTopMargin }) => {
         setTopic("");
         setSelectTopic(false);
       }}
-      popupTopMargin={popupTopMargin}
       classes={""}
     >
       <div className="topic_wrap">

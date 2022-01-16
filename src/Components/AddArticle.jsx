@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { postArticle } from "../Utils/api";
+import { postArticle } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
@@ -64,14 +64,13 @@ export const AddArticle = () => {
           labeling={"body"}
           val={articleInputs.body}
           onChangeFun={changeArticle}
+          initialText="article description"
         />
         <FormControl className="width30">
-          <InputLabel id="demo-simple-select-label">topic</InputLabel>
+          <InputLabel>topic</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
             value={articleInputs.topic}
-            label="Age"
+            label="topic"
             onChange={(event) => {
               changeArticle(event.target.value, "topic");
             }}

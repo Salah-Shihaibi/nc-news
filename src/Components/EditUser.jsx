@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { editUser } from "../Utils/api";
+import { editUser } from "../utils/api";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
 //import styles from "../style/EditUser.module.css";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import { Button, TextField, Avatar, Alert } from "@mui/material";
+import { Button, Avatar, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { InputText } from "./InputText";
 
 export const EditUser = () => {
   const navigate = useNavigate();
@@ -47,31 +48,16 @@ export const EditUser = () => {
       <p className="title">Edit Profile</p>
       {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
       <form onSubmit={editUserOnSubmit} className="form_global">
-        <TextField
-          className="width100"
-          onChange={(event) => {
-            changeUser(event.target.value, "name");
-          }}
-          value={userInputs.name}
-          margin="normal"
-          required
-          label="name"
-          name="name"
-          autoComplete="name"
-          autoFocus
+        <InputText
+          labeling={"name"}
+          val={userInputs.name}
+          onChangeFun={changeUser}
         />
-        <TextField
-          className="width100"
-          onChange={(event) => {
-            changeUser(event.target.value, "avatar_url");
-          }}
-          value={userInputs.avatar_url}
-          margin="normal"
-          required
-          label="image_url"
-          name="image_url"
-          autoComplete="image_url"
-          autoFocus
+
+        <InputText
+          labeling={"image_url"}
+          val={userInputs.avatar_url}
+          onChangeFun={changeUser}
         />
         <div>
           <Button type="submit" variant="contained">

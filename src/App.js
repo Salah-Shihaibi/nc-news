@@ -54,6 +54,10 @@ function App() {
             element={user ? <EditUser /> : <Navigate to="/login" />}
           />
           <Route path="/error" element={<ErrorPage />} />
+          <Route
+            path="*"
+            element={<ErrorPage msg="Page not found" status={404} />}
+          />
         </Routes>
       </div>
     </BrowserRouter>

@@ -1,8 +1,10 @@
-export const Popup = ({ setShow, children, popupTopMargin = "" }) => {
+export const Popup = ({ setShow, children, popupTopMargin }) => {
   return (
     <div
       className={`popup`}
-      onClick={setShow}
+      onClick={() => {
+        setShow();
+      }}
       style={{ marginTop: popupTopMargin }}
     >
       {children}

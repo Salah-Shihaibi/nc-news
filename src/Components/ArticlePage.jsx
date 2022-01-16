@@ -1,13 +1,13 @@
-import { fetchArticleById, removeArticle } from "../Utils/api";
+import { fetchArticleById, removeArticle } from "../utils/api";
 import { useState, useEffect } from "react";
-import { errorHandler } from "../Utils/errorHandler";
-import { timeSince } from "../Utils/pastTime";
+import { errorHandler } from "../utils/errorHandler";
+import { timeSince } from "../utils/pastTime";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { Comments } from "./Comments";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
 import { useLike } from "../hooks/useLike";
-import { editArticle } from "../Utils/api";
+import { editArticle } from "../utils/api";
 import { VoteButton } from "./VoteButton";
 import { Chip, Avatar } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -15,19 +15,24 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import { Popup } from "./Popup";
 import { DeleteOption } from "./DeleteOption";
+import { Loading } from "./Loading";
 
 export const ArticlePage = () => {
-  const { user } = useContext(LoggedIn);
   let navigate = useNavigate();
   const { article_id } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const [singleArticle, setSingleArticles] = useState({});
   const [deleting, setDeleting] = useState(false);
   const { vote, voting } = useLike(article_id, editArticle);
+  const { user } = useContext(LoggedIn);
+  const { title, topic, author, votes, created_at, comment_count, body } =
+    singleArticle;
 
   useEffect(() => {
     fetchArticleById(article_id)
       .then(({ article }) => {
         setSingleArticles(article);
+        setIsLoading(false);
       })
       .catch((err) => errorHandler(err, navigate));
   }, [article_id, navigate]);
@@ -40,12 +45,11 @@ export const ArticlePage = () => {
       .catch((err) => errorHandler(err, navigate));
   };
 
-  if (singleArticle.body) {
+  if (!isLoading) {
     return (
       <>
         {deleting ? (
           <Popup
-            popupTopMargin={"-120px"}
             setShow={() => {
               setDeleting(false);
             }}
@@ -61,7 +65,7 @@ export const ArticlePage = () => {
             ></DeleteOption>
           </Popup>
         ) : null}
-        <div className="center bg_smoke">
+        <div className={`center bg_smoke full_height`}>
           <div className="article_page">
             <div>
               <span className="small_text">
@@ -69,44 +73,45 @@ export const ArticlePage = () => {
                 <Link
                   className="profile_link"
                   to={
-                    user.username === singleArticle.author
+                    user.username === author
                       ? "/dashboard"
-                      : `/profile/${singleArticle.author}`
+                      : `/profile/${author}`
                   }
                 >
-                  {singleArticle.author}{" "}
+                  {author}{" "}
                 </Link>
-                . {timeSince(singleArticle.created_at)} ago
+                . {timeSince(created_at)} ago
               </span>
               <Chip
+                className="mt-mobile-4"
                 label={singleArticle.topic}
                 color="primary"
                 size="small"
-                avatar={<Avatar>{singleArticle.topic[0].toUpperCase()}</Avatar>}
+                avatar={<Avatar>{topic[0].toUpperCase()}</Avatar>}
               />
             </div>
 
             <div className="">
-              <p className="article_title">{singleArticle.title}</p>
-              <p className="article_body">{singleArticle.body}</p>
+              <p className="article_title">{title}</p>
+              <p className="article_body">{body}</p>
             </div>
 
             <div className="wrap_global">
               <VoteButton
                 voting={voting}
-                totalVote={singleArticle.votes + vote}
+                totalVote={votes + vote}
                 vote={vote}
               />
               <div className="comment_count">
-                {singleArticle.comment_count} <ModeCommentIcon />
+                {comment_count} <ModeCommentIcon />
               </div>
               <div className="edit_delete">
-                {singleArticle.author === user.username ? (
+                {author === user.username ? (
                   <>
                     <DeleteOutlineIcon
                       className="red point"
                       onClick={() => {
-                        deleteArticle(article_id);
+                        setDeleting(true);
                       }}
                     />
                     <EditOutlinedIcon
@@ -119,17 +124,13 @@ export const ArticlePage = () => {
             </div>
             <Comments
               article_id={article_id}
-              comment_count={Number(singleArticle.comment_count)}
+              comment_count={Number(comment_count)}
             />
           </div>
         </div>
       </>
     );
   } else {
-    return (
-      <>
-        <h2>Loading...</h2>
-      </>
-    );
+    return <Loading />;
   }
 };

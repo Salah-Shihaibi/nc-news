@@ -1,4 +1,3 @@
-import React from "react";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
 import DownloadIcon from "@mui/icons-material/Download";

@@ -1,16 +1,23 @@
 import { TextField } from "@mui/material";
 
-export const InputText = ({ labeling, val, onChangeFun }) => {
+export const InputText = ({
+  labeling,
+  val,
+  onChangeFun,
+  width = "100%",
+  initialText = "",
+}) => {
+  if (!initialText) initialText = labeling;
   return (
     <TextField
-      className="width100"
+      sx={{ width }}
       onChange={(event) => {
         onChangeFun(event.target.value, labeling);
       }}
       value={val}
       margin="normal"
       required
-      label={labeling}
+      label={initialText}
       name={labeling}
       autoComplete={labeling}
       autoFocus

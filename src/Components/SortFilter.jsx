@@ -8,11 +8,12 @@ export const SortFilter = ({
   userArticles,
   setUserArticles,
   author,
+  selectWidth = "select_width",
 }) => {
   return (
-    <div>
+    <div className="flex_end">
       {author || userLikedArticles ? (
-        <FormControl className="mr-2 behind select_width" size="small">
+        <FormControl className={`mr-2 behind ${selectWidth}`} size="small">
           <InputLabel>Articles</InputLabel>
           <Select
             value={userArticles}
@@ -27,7 +28,7 @@ export const SortFilter = ({
         </FormControl>
       ) : null}
 
-      <FormControl className="mr-2 behind select_width" size="small">
+      <FormControl className={`mr-2 behind ${selectWidth}`} size="small">
         <InputLabel>Sort by</InputLabel>
         <Select
           value={sortBy}
@@ -37,12 +38,14 @@ export const SortFilter = ({
           }}
         >
           <MenuItem value="created_at">Date</MenuItem>
-          <MenuItem value="comment_count">Comments</MenuItem>
+          {selectWidth ? (
+            <MenuItem value="comment_count">Comments</MenuItem>
+          ) : null}
           <MenuItem value="votes">Votes</MenuItem>
         </Select>
       </FormControl>
 
-      <FormControl className="behind select_width" size="small">
+      <FormControl className={`mr-2 behind ${selectWidth}`} size="small">
         <InputLabel>Order</InputLabel>
         <Select
           value={order}

@@ -17,7 +17,9 @@ export const Nav = () => {
   return (
     <>
       <nav className={styles.nav}>
-        <div className={styles.logo}>NC News</div>
+        <Link to="/" className={`link ${styles.logo}`}>
+          <div>NC News</div>
+        </Link>
 
         <div className={styles.avatar} onClick={toggle}>
           {user ? (
@@ -54,12 +56,6 @@ export const Nav = () => {
                 </Link>
               </>
             )}
-            <Link to="/" className={styles.link}>
-              Element
-            </Link>
-            <Link to="/" className={styles.link}>
-              Element
-            </Link>
           </div>
         </div>
       ) : null}

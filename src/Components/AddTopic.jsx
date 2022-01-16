@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { postTopic } from "../Utils/api";
+import { postTopic } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { TopicsList } from "../contexts/Topics";
 //import styles from "../style/AddTopic.module.css";
-import { Button, TextField, Alert, Avatar } from "@mui/material";
+import { Button, Alert, Avatar } from "@mui/material";
 import PostAddIcon from "@mui/icons-material/PostAdd";
+import { InputText } from "./InputText";
 
 export const AddTopic = () => {
   const { setTopics } = useContext(TopicsList);
@@ -45,32 +46,16 @@ export const AddTopic = () => {
       <p className="title">Add topic</p>
       {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
       <form onSubmit={postTopicOnSubmit} className="form_global">
-        <TextField
-          className="width100"
-          onChange={(event) => {
-            changeTopic(event.target.value, "slug");
-          }}
-          value={topicInputs.slug}
-          margin="normal"
-          required
-          label="slug"
-          name="slug"
-          autoComplete="slug"
-          autoFocus
+        <InputText
+          labeling={"slug"}
+          val={topicInputs.slug}
+          onChangeFun={changeTopic}
         />
 
-        <TextField
-          className="width100"
-          onChange={(event) => {
-            changeTopic(event.target.value, "description");
-          }}
-          value={topicInputs.description}
-          margin="normal"
-          required
-          label="description"
-          name="description"
-          autoComplete="description"
-          autoFocus
+        <InputText
+          labeling={"description"}
+          val={topicInputs.description}
+          onChangeFun={changeTopic}
         />
         <div>
           <Button type="submit" variant="contained">

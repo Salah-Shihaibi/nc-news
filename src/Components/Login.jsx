@@ -1,12 +1,12 @@
-import React from "react";
 import { useState } from "react";
-import { fetchUserByUsername } from "../Utils/api";
+import { fetchUserByUsername } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
 import styles from "../style/Login.module.css";
-import { Button, TextField, Alert, Avatar } from "@mui/material";
+import { Button, Alert, Avatar } from "@mui/material";
 import InputIcon from "@mui/icons-material/Input";
+import { InputText } from "./InputText";
 
 export const Login = () => {
   const { setUser } = useContext(LoggedIn);
@@ -38,20 +38,13 @@ export const Login = () => {
         </Avatar>
         <p className="title mb-5">Login</p>
         <form className={styles.form} onSubmit={loginSubmit}>
-          <TextField
-            className={styles.input}
-            onChange={(event) => {
-              setUsernameInput(event.target.value);
-            }}
-            value={usernameInput}
-            margin="normal"
-            required
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="username"
-            autoFocus
+          <InputText
+            labeling={"username"}
+            val={usernameInput}
+            onChangeFun={setUsernameInput}
+            width="85%"
           />
+
           <Button type="submit" variant="contained">
             Login
           </Button>

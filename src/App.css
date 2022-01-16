@@ -2,6 +2,13 @@
   min-height: 100vh;
 }
 
+.hide {
+  display: none;
+}
+.full_height {
+  min-height: 100vh;
+}
+
 .title {
   font-size: 23px;
   font-family: "georgia";
@@ -89,6 +96,11 @@
   align-items: center;
   gap: 10px;
 }
+
+.article_not_found {
+  padding-left: 5%;
+}
+
 .articles {
   display: flex;
   flex-wrap: wrap;
@@ -254,15 +266,16 @@
 .popup {
   display: flex;
   justify-content: center;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   width: 100%;
-  z-index: 990;
+  z-index: 999;
   background-color: rgba(0, 0, 0, 0.6);
   min-height: 100vh;
+  overflow-y: scroll;
   animation-name: popup;
   animation-duration: 0.5s;
 }
@@ -377,6 +390,9 @@
   .p-2 {
     padding: 20px 1px !important;
     width: 70px;
+  }
+  .mt-mobile-4 {
+    margin-top: 4px !important;
   }
 }
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { editComment } from "../Utils/api";
+import { editComment } from "../utils/api";
 import { InputText } from "./InputText";
 import { Button, Alert } from "@mui/material";
 export const EditComment = ({ comment, setToggleComment, patchComment }) => {

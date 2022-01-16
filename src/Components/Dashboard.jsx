@@ -44,7 +44,6 @@ export const Dashboard = () => {
       <Articles
         author={`&author=${user.username}`}
         userLikedArticles={`&userLikedArticles=${user.username}`}
-        popupTopMargin={"-175px"}
       />
     </>
   );
