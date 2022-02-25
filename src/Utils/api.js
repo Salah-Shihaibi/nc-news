@@ -8,7 +8,7 @@ function getStorageValue(key, defaultValue) {
 }
 
 const myApi = axios.create({
-  baseURL: "http://localhost:9090/api", //"https://nc-news-api-app.herokuapp.com/api",
+  baseURL: "https://nc-news-api-app.herokuapp.com/api",
 });
 
 myApi.interceptors.request.use((config) => {
