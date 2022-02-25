@@ -18,6 +18,11 @@ export const Nav = () => {
     <>
       <nav className={styles.nav}>
         <Link to="/" className={`link ${styles.logo}`}>
+          <img
+            className={styles.image}
+            src={require("../images/logo.png")}
+            alt="logo"
+          />{" "}
           <div>NC News</div>
         </Link>
 
@@ -26,7 +31,7 @@ export const Nav = () => {
             <img
               className={styles.image}
               src={user.avatar_url}
-              alt={user.avatar_url}
+              alt={user.username}
             />
           ) : (
             <Avatar
@@ -40,9 +45,6 @@ export const Nav = () => {
       {navToggle ? (
         <div onClick={toggle} className={styles.link_container}>
           <div className={styles.links}>
-            <Link to="/" className={styles.link}>
-              Home
-            </Link>
             {user ? (
               <>
                 <Link to="/dashboard" className={styles.link}>
@@ -56,6 +58,9 @@ export const Nav = () => {
                 </Link>
               </>
             )}
+            <Link to="/" className={styles.link}>
+              Home
+            </Link>
           </div>
         </div>
       ) : null}

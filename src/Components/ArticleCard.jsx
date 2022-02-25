@@ -1,47 +1,50 @@
+import {
+  fetchUserVotedArticles,
+  removeUserVotedArticle,
+  postUserVotedArticle,
+  editUserVotedArticle,
+  editArticle,
+} from "../utils/api";
 import { timeSince } from "../utils/pastTime";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
-import { editArticle } from "../utils/api";
 import { useLike } from "../hooks/useLike";
 import { VoteButton } from "./VoteButton";
 import { Chip, Avatar } from "@mui/material";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { Popup } from "./Popup";
-import { DeleteOption } from "./DeleteOption";
+import styles from "../style/ArticleCard.module.css";
+import { EditDelete } from "./EditDelete";
+import { DeletePopup } from "./DeletePopup";
 
 export const ArticleCard = ({ article, deleteArticle, setTopic }) => {
   const { user } = useContext(LoggedIn);
   const { title, topic, author, votes, created_at, comment_count, article_id } =
     article;
-  const navigate = useNavigate();
-
-  const { vote, voting } = useLike(article_id, editArticle);
+  const { vote, voting, voteCounter } = useLike(
+    article_id,
+    editArticle,
+    fetchUserVotedArticles,
+    removeUserVotedArticle,
+    postUserVotedArticle,
+    editUserVotedArticle,
+    "userLikedArticles",
+    "article_id"
+  );
   const [deleting, setDeleting] = useState(false);
 
   return (
     <>
-      {deleting ? (
-        <Popup
-          setShow={() => {
-            setDeleting(false);
-          }}
-        >
-          <DeleteOption
-            setShow={() => {
-              setDeleting(false);
-            }}
-            itemName={"this article"}
-            deleteFunc={() => {
-              deleteArticle(article_id);
-            }}
-          ></DeleteOption>
-        </Popup>
-      ) : null}
-      <div className="article_card">
+      <DeletePopup
+        deleting={deleting}
+        setDeleting={setDeleting}
+        deleteFunc={() => {
+          deleteArticle(article_id);
+        }}
+        itemName={"this article"}
+      />
+      <div className={styles.article_card}>
         <div>
           <span className="small_text">
             Posted by{" "}
@@ -71,26 +74,19 @@ export const ArticleCard = ({ article, deleteArticle, setTopic }) => {
           <p className="small_text blue_color">Continue reading...</p>
         </Link>
         <div className="wrap_global">
-          <VoteButton voting={voting} totalVote={votes + vote} vote={vote} />
-          <div className="comment_count">
+          <VoteButton
+            voting={voting}
+            totalVote={votes + voteCounter + vote}
+            vote={vote}
+          />
+          <div className="ml-5 chip">
             {comment_count} <ModeCommentIcon />
           </div>
-          <div className="edit_delete">
-            {author === user.username ? (
-              <>
-                <DeleteOutlineIcon
-                  className="red point"
-                  onClick={() => {
-                    setDeleting(true);
-                  }}
-                />
-                <EditOutlinedIcon
-                  className="blue point"
-                  onClick={() => navigate(`/edit/articles/${article_id}`)}
-                />
-              </>
-            ) : null}
-          </div>
+          <EditDelete
+            author={author}
+            url={`/edit/articles/${article_id}`}
+            setDeleting={setDeleting}
+          />
         </div>
       </div>
     </>

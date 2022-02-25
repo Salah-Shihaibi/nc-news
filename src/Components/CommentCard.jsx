@@ -1,45 +1,50 @@
+import {
+  editComment,
+  fetchUserVotedComment,
+  removeUserVotedComment,
+  postUserVotedComment,
+  editUserVotedComment,
+} from "../utils/api";
 import { timeSince } from "../utils/pastTime";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
 import { useState } from "react";
 import { EditComment } from "./EditComment";
 import { useLike } from "../hooks/useLike";
-import { editComment } from "../utils/api";
 import { VoteButton } from "./VoteButton";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { Popup } from "./Popup";
-import { DeleteOption } from "./DeleteOption";
 import { Link } from "react-router-dom";
+import { DeletePopup } from "./DeletePopup";
+import { EditDelete } from "./EditDelete";
+import styles from "../style/CommentCard.module.css";
 
 export const CommentCard = ({ comment, deleteComment, patchComment }) => {
   const { user } = useContext(LoggedIn);
   const { author, votes, created_at, body, comment_id } = comment;
   const [toggleComment, setToggleComment] = useState(true);
-  const { vote, voting } = useLike(comment_id, editComment);
+  const { vote, voting, voteCounter } = useLike(
+    comment_id,
+    editComment,
+    fetchUserVotedComment,
+    removeUserVotedComment,
+    postUserVotedComment,
+    editUserVotedComment,
+    "userLikedComments",
+    "comment_id"
+  );
   const [deleting, setDeleting] = useState(false);
 
   if (toggleComment) {
     return (
       <>
-        {deleting ? (
-          <Popup
-            setShow={() => {
-              setDeleting(false);
-            }}
-          >
-            <DeleteOption
-              setShow={() => {
-                setDeleting(false);
-              }}
-              itemName={"this article"}
-              deleteFunc={() => {
-                deleteComment(comment_id);
-              }}
-            ></DeleteOption>
-          </Popup>
-        ) : null}
-        <div className="comment_card">
+        <DeletePopup
+          deleting={deleting}
+          setDeleting={setDeleting}
+          deleteFunc={() => {
+            deleteComment(comment_id);
+          }}
+          itemName={"this comment"}
+        />
+        <div className="mb-20">
           <span className="small_text">
             Posted by{" "}
             <Link
@@ -52,25 +57,19 @@ export const CommentCard = ({ comment, deleteComment, patchComment }) => {
             </Link>{" "}
             . {timeSince(created_at)} ago
           </span>
-          <p className="comment_body">{body}</p>
+          <p className={styles.comment_body}>{body}</p>
           <div className="wrap_global">
-            <VoteButton voting={voting} totalVote={votes + vote} vote={vote} />
-            <div className="edit_delete width100">
-              {author === user.username ? (
-                <>
-                  <DeleteOutlineIcon
-                    className="red point"
-                    onClick={() => {
-                      setDeleting(true);
-                    }}
-                  />
-                  <EditOutlinedIcon
-                    className="blue point"
-                    onClick={() => setToggleComment(false)}
-                  />
-                </>
-              ) : null}
-            </div>
+            {/* <VoteButton voting={voting} totalVote={votes + vote} vote={vote} /> */}
+            <VoteButton
+              voting={voting}
+              totalVote={votes + voteCounter + vote}
+              vote={vote}
+            />
+            <EditDelete
+              author={author}
+              editFunc={() => setToggleComment(false)}
+              setDeleting={setDeleting}
+            />
           </div>
         </div>
       </>

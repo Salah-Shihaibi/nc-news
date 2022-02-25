@@ -1,0 +1,8 @@
+.article_page {
+  max-width: 600px;
+  width: 96%;
+  margin: 20px 0px;
+  padding: 15px 15px 5px 15px;
+  background-color: rgb(255, 255, 255);
+  transition: transform 0.3s;
+}

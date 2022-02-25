@@ -1,0 +1,60 @@
+.post {
+  text-decoration: none;
+  color: black;
+  background-color: white;
+  padding: 8% 14%;
+  border: solid 1px rgb(221, 220, 220);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0;
+  font-size: 20px;
+  font-size: 23px;
+  font-family: "georgia";
+  font-weight: bold;
+}
+.post:hover {
+  transition: transform 0.3s; /* Animation */
+  transform: scale(1.05);
+}
+
+.gap {
+  gap: 50px;
+}
+
+.articles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter_nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: white;
+  height: 60px;
+  padding: 0px 5px;
+  margin-top: 1px;
+}
+
+.articles_count {
+  max-width: 1215px;
+  width: 92%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 680px) {
+  .post {
+    padding: 8% 9%;
+    font-size: 17px;
+    font-family: "georgia";
+    font-weight: bold;
+  }
+  .gap {
+    gap: 20px;
+  }
+}

@@ -22,7 +22,7 @@ export const EditComment = ({ comment, setToggleComment, patchComment }) => {
   return (
     <>
       {errorMsg ? <Alert severity="error">{errorMsg}</Alert> : null}
-      <form onSubmit={editCommentOnSubmit}>
+      <form onSubmit={editCommentOnSubmit} className="scale_animation">
         <InputText
           labeling={"body"}
           val={bodyInput}

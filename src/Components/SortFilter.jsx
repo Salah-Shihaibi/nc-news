@@ -24,6 +24,9 @@ export const SortFilter = ({
           >
             <MenuItem value={author}>User articles</MenuItem>
             <MenuItem value={userLikedArticles}>Liked articles</MenuItem>
+            <MenuItem value={`${userLikedArticles}&votingStatus=down`}>
+              Disliked articles
+            </MenuItem>
           </Select>
         </FormControl>
       ) : null}

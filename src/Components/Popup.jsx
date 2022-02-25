@@ -1,7 +1,8 @@
+import styles from "../style/Popup.module.css";
 export const Popup = ({ setShow, children, popupTopMargin }) => {
   return (
     <div
-      className={`popup`}
+      className={styles.popup}
       onClick={() => {
         setShow();
       }}

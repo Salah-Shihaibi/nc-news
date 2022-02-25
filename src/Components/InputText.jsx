@@ -12,7 +12,7 @@ export const InputText = ({
     <TextField
       sx={{ width }}
       onChange={(event) => {
-        onChangeFun(event.target.value, labeling);
+        onChangeFun(event.target.value, labeling.toLowerCase());
       }}
       value={val}
       margin="normal"
@@ -21,6 +21,7 @@ export const InputText = ({
       name={labeling}
       autoComplete={labeling}
       autoFocus
+      multiline
     />
   );
 };

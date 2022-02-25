@@ -1,0 +1,25 @@
+.popup {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  z-index: 999999;
+  background-color: rgba(0, 0, 0, 0.6);
+  min-height: 100vh;
+  overflow-y: scroll;
+  animation-name: popup;
+  animation-duration: 0.5s;
+}
+
+@keyframes popup {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

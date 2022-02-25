@@ -12,6 +12,7 @@ import TopicIcon from "@mui/icons-material/Topic";
 import { Popup } from "./Popup";
 import { Chip } from "@mui/material";
 import { Loading } from "./Loading";
+import styles from "../style/Articles.module.css";
 
 const LIMIT = 10;
 
@@ -79,11 +80,11 @@ export const Articles = ({ userLikedArticles = "", author = "" }) => {
               setPost(false);
             }}
           >
-            <div className="wrap_global center">
-              <Link className="post" to="/post/article">
+            <div className={`wrap_global center ${styles.gap}`}>
+              <Link className={styles.post} to="/post/article">
                 Post article
               </Link>
-              <Link className="post" to="/post/topic">
+              <Link className={styles.post} to="/post/topic">
                 Post topic
               </Link>
             </div>
@@ -95,8 +96,8 @@ export const Articles = ({ userLikedArticles = "", author = "" }) => {
         ) : null}
 
         <>
-          <div className={`articles`}>
-            <nav className="filter_nav">
+          <div className={styles.articles}>
+            <nav className={styles.filter_nav}>
               <div>
                 <Chip
                   className="mr-2 p-2"
@@ -138,7 +139,7 @@ export const Articles = ({ userLikedArticles = "", author = "" }) => {
 
             <Search setSearch={setSearch} display={"mobile_search"} />
 
-            <div className="articles_count">
+            <div className={`${styles.articles_count}`}>
               <p>{totalCount} articles</p>
 
               <Chip
@@ -157,7 +158,7 @@ export const Articles = ({ userLikedArticles = "", author = "" }) => {
               />
 
               <Chip
-                label={"Refresh articles"}
+                label={"Reset articles"}
                 onClick={resetStates}
                 sx={{
                   backgroundColor: "#1976d2",
@@ -169,11 +170,11 @@ export const Articles = ({ userLikedArticles = "", author = "" }) => {
             </div>
           </div>
           {allArticles.length ? null : (
-            <p className="article_not_found article_body">
+            <p className="pl-5 article_body">
               No article found try other filters or search keywords
             </p>
           )}
-          <div className="articles">
+          <div className={styles.articles}>
             {allArticles.map((article) => {
               return (
                 <ArticleCard

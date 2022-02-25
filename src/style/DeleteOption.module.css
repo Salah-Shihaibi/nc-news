@@ -1,0 +1,10 @@
+.delete_card {
+  max-width: 600px;
+  height: 200px;
+  margin: auto;
+  width: 90%;
+  padding: 5px 10px 5px 10px;
+  background-color: white;
+  border: solid 1px rgb(221, 220, 220);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+}

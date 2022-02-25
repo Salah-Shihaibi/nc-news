@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 import { Nav } from "./Components/Nav";
 import { Login } from "./Components/Login";
 import { Dashboard } from "./Components/Dashboard";
@@ -13,16 +14,28 @@ import { EditArticle } from "./Components/EditArticle";
 import { AddTopic } from "./Components/AddTopic";
 import { ProfilePage } from "./Components/ProfilePage";
 import { EditUser } from "./Components/EditUser";
+import { Register } from "./Components/Register";
 
 function App() {
-  let { user } = useContext(LoggedIn);
+  let { user, compareUserAndToken } = useContext(LoggedIn);
   user = Object.keys(user).length === 0 ? null : user;
+  useEffect(() => {
+    if (compareUserAndToken()) {
+      localStorage.setItem("user", JSON.stringify({}));
+      localStorage.setItem("token", JSON.stringify(""));
+    }
+  }, [compareUserAndToken]);
+
   return (
     <BrowserRouter>
       <div className="App">
         <Nav user={user} />
         <Routes>
           <Route path="/" element={<Articles />} />
+          <Route
+            path="/register"
+            element={user ? <Navigate to="/dashboard" /> : <Register />}
+          />
           <Route
             path="/login"
             element={user ? <Navigate to="/dashboard" /> : <Login />}

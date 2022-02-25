@@ -1,0 +1,23 @@
+.article_card {
+  max-width: 600px;
+  width: 48%;
+  margin: 5px 0px;
+  padding: 5px 10px 5px 10px;
+  background-color: white;
+  transition: transform 0.3s;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.article_card:hover {
+  transform: scale(1.01);
+}
+
+@media (max-width: 680px) {
+  .article_card {
+    width: 90%;
+    margin: 10px 0px;
+  }
+}

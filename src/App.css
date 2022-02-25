@@ -2,42 +2,33 @@
   min-height: 100vh;
 }
 
-.hide {
-  display: none;
-}
-.full_height {
-  min-height: 100vh;
-}
-
-.title {
-  font-size: 23px;
-  font-family: "georgia";
-  font-weight: bold;
-  margin: 0px;
+.chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: solid 1.5px rgb(161, 161, 161);
+  border-radius: 25px;
+  color: gray;
+  width: 25%;
+  padding: 2px 10px;
 }
 
-.small_text {
-  font-size: 13px;
-  font-family: "Arial";
-  color: rgb(155, 155, 155);
-  margin-right: 20px;
-}
-.center_text {
-  text-align: center;
+.vote_count {
+  justify-content: space-between;
 }
 
-.cancel {
-  margin-left: 10px !important;
-  background-color: red !important;
+.edit_delete {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
 }
 
 .center {
   display: flex;
   justify-content: center;
-}
-
-.my-10 {
-  margin: 10px 0px;
 }
 
 .wrap_global {
@@ -67,62 +58,37 @@
   max-width: 600px;
 }
 
-.filter_nav {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  background-color: white;
-  height: 60px;
-  padding: 0px 5px;
-  margin-top: 1px;
+.title {
+  font-size: 23px;
+  font-family: "georgia";
+  font-weight: bold;
+  margin: 0px;
 }
 
-.delete_card {
-  max-width: 600px;
-  height: 200px;
-  margin: auto;
-  width: 90%;
-  padding: 5px 10px 5px 10px;
-  background-color: white;
-  border: solid 1px rgb(221, 220, 220);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+.small_text {
+  font-size: 13px;
+  font-family: "Arial";
+  color: rgb(155, 155, 155);
+  margin-right: 20px;
 }
-.articles_count {
-  max-width: 1220px;
-  width: 90%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.center_text {
+  text-align: center;
+}
+.article_title {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 10px 0px;
 }
 
-.article_not_found {
-  padding-left: 5%;
+.article_body {
+  font-size: 15px;
+  font-weight: lighter;
+  margin: 10px 0px;
 }
 
-.articles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-}
-.article_card {
-  max-width: 600px;
-  width: 48%;
-  margin: 5px 0px;
-  padding: 5px 10px 5px 10px;
-  background-color: white;
-  transition: transform 0.3s;
-  min-height: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
-.article_card:hover {
-  transform: scale(1.005);
+.cancel {
+  margin-left: 10px !important;
+  background-color: red !important;
 }
 
 .profile_link {
@@ -170,56 +136,8 @@
   color: rgb(156, 10, 0);
 }
 
-.article_title {
-  font-size: 17px;
-  font-weight: 700;
-  margin: 10px 0px;
-}
-
-.article_body {
-  font-size: 15px;
-  font-weight: lighter;
-  margin: 10px 0px;
-}
-
-.vote_count,
-.comment_count {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  border: solid 1.5px rgb(161, 161, 161);
-  border-radius: 25px;
-  color: gray;
-  width: 25%;
-  padding: 2px 10px;
-}
-.comment_count {
-  margin-left: 5px;
-}
-.vote_count {
-  justify-content: space-evenly;
-}
-
-.edit_delete {
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 5px;
-}
-
 .point {
   cursor: pointer;
-}
-
-.article_page {
-  max-width: 600px;
-  width: 96%;
-  margin: 20px 0px;
-  padding: 15px 15px 5px 15px;
-  background-color: rgb(255, 255, 255);
-  transition: transform 0.3s;
 }
 
 .bg_smoke {
@@ -240,14 +158,45 @@
   border-radius: 5px;
 }
 
-.comment_body {
-  font-size: 12px;
-  font-weight: lighter;
+.scale_animation {
+  animation-name: popup;
+  animation-duration: 0.4s;
+}
+@keyframes popup {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.behind {
+  z-index: 0 !important;
+}
+
+.pl-5 {
+  padding-left: 5%;
+}
+
+.my-10 {
   margin: 10px 0px;
 }
 
-.comment_card {
+.mb-20 {
   margin-bottom: 20px;
+}
+
+.ml-5 {
+  margin-left: 5px;
+}
+
+.width_select {
+  width: 18%;
 }
 
 .width100 {
@@ -259,98 +208,12 @@
   margin: 10px 0px !important;
 }
 
-.width_select {
-  width: 18%;
-}
-
-.popup {
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  z-index: 999;
-  background-color: rgba(0, 0, 0, 0.6);
+.full_height {
   min-height: 100vh;
-  overflow-y: scroll;
-  animation-name: popup;
-  animation-duration: 0.5s;
-}
-
-@keyframes popup {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.topic_wrap {
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
-
-.topics {
-  width: 100%;
-  z-index: 999;
-  background-color: white;
-  padding: 5px 5px;
-  border: solid 1px rgb(221, 220, 220);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
-}
-.topics:hover {
-  transition: transform 0.3s; /* Animation */
-  transform: scale(1.01);
-}
-
-.post {
-  text-decoration: none;
-  color: black;
-  background-color: white;
-  padding: 20px 20px;
-  border: solid 1px rgb(221, 220, 220);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0;
-  margin-right: 20px;
-  font-size: 20px;
-}
-.post:hover {
-  transition: transform 0.3s; /* Animation */
-  transform: scale(1.05);
-}
-
-.search_bar {
-  border: solid 1.2px rgb(161, 161, 161) !important;
-  padding: 10px;
-  border-radius: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: white;
-}
-
-.search_input {
-  border: none;
-  width: 90%;
-}
-.search_input:focus {
-  outline: none;
 }
 
 .mr-2 {
   margin-right: 5px !important;
-}
-
-.behind {
-  z-index: 0 !important;
 }
 
 .p-2 {
@@ -363,36 +226,21 @@
   border: solid 1.5px rgb(161, 161, 161) !important;
 }
 
-.mobile_search {
-  display: none;
-}
-.pc {
-  width: 45%;
-}
 @media (max-width: 680px) {
-  .article_card {
-    width: 90%;
-    margin: 10px 0px;
-  }
   .pc {
     display: none;
   }
 
-  .mobile_search {
-    width: 100% !important;
-    display: flex;
-    margin: auto;
-  }
-  .mobile_search_width {
-    width: 80%;
-    margin: auto;
-  }
   .p-2 {
     padding: 20px 1px !important;
     width: 70px;
   }
   .mt-mobile-4 {
     margin-top: 4px !important;
+  }
+
+  .vote_count {
+    justify-content: center;
   }
 }
 

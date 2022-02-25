@@ -1,4 +1,12 @@
-import { fetchArticleById, removeArticle } from "../utils/api";
+import {
+  fetchArticleById,
+  fetchUserVotedArticles,
+  removeArticle,
+  removeUserVotedArticle,
+  postUserVotedArticle,
+  editUserVotedArticle,
+  editArticle,
+} from "../utils/api";
 import { useState, useEffect } from "react";
 import { errorHandler } from "../utils/errorHandler";
 import { timeSince } from "../utils/pastTime";
@@ -7,15 +15,13 @@ import { Comments } from "./Comments";
 import { useContext } from "react";
 import { LoggedIn } from "../contexts/LoggedIn";
 import { useLike } from "../hooks/useLike";
-import { editArticle } from "../utils/api";
 import { VoteButton } from "./VoteButton";
 import { Chip, Avatar } from "@mui/material";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
-import { Popup } from "./Popup";
-import { DeleteOption } from "./DeleteOption";
 import { Loading } from "./Loading";
+import { EditDelete } from "./EditDelete";
+import { DeletePopup } from "./DeletePopup";
+import styles from "../style/ArticlePage.module.css";
 
 export const ArticlePage = () => {
   let navigate = useNavigate();
@@ -23,11 +29,19 @@ export const ArticlePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [singleArticle, setSingleArticles] = useState({});
   const [deleting, setDeleting] = useState(false);
-  const { vote, voting } = useLike(article_id, editArticle);
   const { user } = useContext(LoggedIn);
   const { title, topic, author, votes, created_at, comment_count, body } =
     singleArticle;
-
+  const { vote, voting, voteCounter } = useLike(
+    article_id,
+    editArticle,
+    fetchUserVotedArticles,
+    removeUserVotedArticle,
+    postUserVotedArticle,
+    editUserVotedArticle,
+    "userLikedArticles",
+    "article_id"
+  );
   useEffect(() => {
     fetchArticleById(article_id)
       .then(({ article }) => {
@@ -35,7 +49,7 @@ export const ArticlePage = () => {
         setIsLoading(false);
       })
       .catch((err) => errorHandler(err, navigate));
-  }, [article_id, navigate]);
+  }, [article_id, navigate, user.username]);
 
   const deleteArticle = (article_id) => {
     removeArticle(article_id)
@@ -48,25 +62,16 @@ export const ArticlePage = () => {
   if (!isLoading) {
     return (
       <>
-        {deleting ? (
-          <Popup
-            setShow={() => {
-              setDeleting(false);
-            }}
-          >
-            <DeleteOption
-              setShow={() => {
-                setDeleting(false);
-              }}
-              itemName={"this article"}
-              deleteFunc={() => {
-                deleteArticle(article_id);
-              }}
-            ></DeleteOption>
-          </Popup>
-        ) : null}
+        <DeletePopup
+          deleting={deleting}
+          setDeleting={setDeleting}
+          deleteFunc={() => {
+            deleteArticle(article_id);
+          }}
+          itemName={"this article"}
+        />
         <div className={`center bg_smoke full_height`}>
-          <div className="article_page">
+          <div className={styles.article_page}>
             <div>
               <span className="small_text">
                 Posted by{" "}
@@ -99,28 +104,17 @@ export const ArticlePage = () => {
             <div className="wrap_global">
               <VoteButton
                 voting={voting}
-                totalVote={votes + vote}
+                totalVote={votes + voteCounter + vote}
                 vote={vote}
               />
-              <div className="comment_count">
+              <div className="ml-5 chip">
                 {comment_count} <ModeCommentIcon />
               </div>
-              <div className="edit_delete">
-                {author === user.username ? (
-                  <>
-                    <DeleteOutlineIcon
-                      className="red point"
-                      onClick={() => {
-                        setDeleting(true);
-                      }}
-                    />
-                    <EditOutlinedIcon
-                      className="blue point"
-                      onClick={() => navigate(`/edit/articles/${article_id}`)}
-                    />
-                  </>
-                ) : null}
-              </div>
+              <EditDelete
+                author={author}
+                url={`/edit/articles/${article_id}`}
+                setDeleting={setDeleting}
+              />
             </div>
             <Comments
               article_id={article_id}

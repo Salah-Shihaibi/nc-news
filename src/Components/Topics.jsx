@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { TopicsList } from "../contexts/Topics";
 import { Popup } from "./Popup";
+import styles from "../style/Topics.module.css";
 
 export const Topics = ({ setTopic, setSelectTopic }) => {
   const { topics } = useContext(TopicsList);
@@ -13,12 +14,12 @@ export const Topics = ({ setTopic, setSelectTopic }) => {
       }}
       classes={""}
     >
-      <div className="topic_wrap">
+      <div className={styles.topic_wrap}>
         {topics.map(({ slug, description }) => {
           return (
             <div
               key={slug}
-              className="topics point"
+              className={`${styles.topics} point`}
               onClick={(event) => {
                 event.stopPropagation();
                 setTopic(`&topic=${slug}`);
